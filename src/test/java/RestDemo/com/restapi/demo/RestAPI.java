@@ -54,26 +54,9 @@ public class RestAPI {
 					response = POSTRequest.postRequest(sURL);
 				}
 			}
-			/*else {			
-				//RequestSpecification req = RestAssured.given().log().all().parameters(urlParameters);
-				//RequestSpecification req = RestAssured.given().parameters(urlParameters);
-				RequestSpecification req = RestAssured.given().parameters(urlParameters);
-				
-				
-				if(isGetOperation){				
-					response = req.get(sURL);
-				}
-				if(isPostOperation){
-					response = req.post(sURL);
-				}
-				if(isDeleteOperation){
-					response = req.delete(sURL);
-				}
-				if(isPutOperation){
-					response = req.put(sURL);
-				}*/
+			
 			}
-		//}
+		
 		
 		public boolean validateResponseCode(String sresponseCode) throws
 			NumberFormatException, IOException {

@@ -4,6 +4,6 @@ public class CommonMethod {
 
 	
 	
-	RestAssured.
+	
 	
 }
