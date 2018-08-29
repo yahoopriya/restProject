@@ -10,22 +10,27 @@ public class PUTRequest {
 	
 	public static Response putRequest(String sURL) {
 		
-		RestAssured.baseURI = "http://localhost:3000/comments";
+		RestAssured.baseURI = sURL;
 		RequestSpecification httpRequest = RestAssured.given();
 		httpRequest.headers("Content-Type", "application/json");
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("id", 89);
-		jsonObject.put("body", 87);
+		jsonObject.put("body", 85);
 		jsonObject.put("postId", "sun");
 		httpRequest.body(jsonObject.toJSONString());
 		Response response = httpRequest.put("/89"); // here it always gives the same response as it just updates the resources
+		System.out.println("+++++++++++++");
 		System.out.println(response.statusCode());
-		response.statusCode();
+		if(response.statusCode()==200) {
+			System.out.println("Sucessfully updated the resources");
+		}else if(response.statusCode()==404) {
+			System.out.println("page not found");
+		}
 		return response;
 	}
 
 	public static void main(String[] args) {
-		putRequest(null);
+		putRequest("http://localhost:3000/comments");
 	
 }
 }

@@ -10,7 +10,7 @@ public class GETRequest {
 	
 	public static Response getRequest(String sURL) {
 		
-		RestAssured.baseURI = "http://localhost:3000/comments";
+		RestAssured.baseURI = sURL;
 		RequestSpecification httpRequest = RestAssured.given();
 		Response response = httpRequest.get();
 		System.out.println(response.statusCode());

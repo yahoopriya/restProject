@@ -28,7 +28,6 @@
       <version>3.1.1</version>
       <scope>test</scope>
 </dependency>
-
 <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>json-path</artifactId>
@@ -64,6 +63,10 @@
     <artifactId>json-simple</artifactId>
     <version>1.1</version>
 </dependency>
-
+ <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.5.4</version>
+</dependency>
   </dependencies>
 </project>

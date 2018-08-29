@@ -9,26 +9,23 @@ import io.restassured.specification.RequestSpecification;
 public class DELETERequest {
 
 	public static Response deleteRequest(String sURL) {
-		
-		RestAssured.baseURI = "http://localhost:3000/comments";
+
+		RestAssured.baseURI = sURL;
 		RequestSpecification httpRequest = RestAssured.given();
-		Response response = httpRequest.delete("/89"); // here i  am deleting resources
-		System.out.println(response.statusCode());
-		if(response.statusCode()==200)
-		{
-			System.out.println(" resource deleted sucessfully");
-		}
-		else if(response.statusCode()==404) {
-			
-			System.out.println(" resource not found on the server");
+		Response response = httpRequest.delete("/89"); // here i am deleting resources
+		if (response.statusCode() == 200) {
+			System.out.println(" resource deleted sucessfully :" + response.statusCode());
+		} else if (response.statusCode() == 404) {
+
+			System.out.println(" resource not found on the server :" + response.statusCode());
 		}
 		return response;
-		
+
 	}
 
 	public static void main(String[] args) {
-		
-		deleteRequest(null);
+
+		deleteRequest("http://localhost:3000/comments");
 	}
-	
+
 }

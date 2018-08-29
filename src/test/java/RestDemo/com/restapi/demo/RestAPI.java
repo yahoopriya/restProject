@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.json.simple.parser.JSONParser;
 import org.xml.sax.SAXException;
 
 import 	io.restassured.response.Response;
@@ -31,7 +32,6 @@ public class RestAPI {
 			if(sTestStepData==null||sTestStepData==""){
 				bNoTestStepData =true;
 			}
-			//boolean bIsParameterised = sTestStepData.isEmpty();
 			boolean isGetOperation = sOperation.equalsIgnoreCase("get");
 			boolean isPostOperation = sOperation.equalsIgnoreCase("post");
 			boolean isDeleteOperation = sOperation.equalsIgnoreCase("delete");
@@ -42,7 +42,7 @@ public class RestAPI {
 					response = GETRequest.getRequest(sURL);
 				}
 				else if(isPostOperation){
-					response = POSTRequest.postRequest(sTestStepData);
+					response = POSTRequest.postRequest(sURL);
 				}
 				else if(isDeleteOperation){
 					response = DELETERequest.deleteRequest(sURL);
@@ -86,9 +86,7 @@ public class RestAPI {
 			}		
 				return true;		
 		}
-		
-		
-		
+
 		public String[] validateData(String sTag) throws SAXException, IOException, ParserConfigurationException{
 			boolean isXMLResponseType = expectedResponseHeaderType.contains("xml");
 			
@@ -103,7 +101,7 @@ public class RestAPI {
 			return new String[]  {tagToCheck, attributeToCheck};		
 		}
 		
-	public boolean validateJsonAttribute(String sTag) throws SAXException, IOException, ParserConfigurationException, JSONException {
+	public boolean validateJsonAttribute(String sTag) throws SAXException, IOException, ParserConfigurationException {
 			
 			String[] arr1 = validateData(sTag);
 			
@@ -111,11 +109,7 @@ public class RestAPI {
 			String sAttributeValue = arr1[1];
 			
 			responseString = response.asString();
-			/*String str1 = fileFormat.jsonToCSVFormat(responseString);
-			System.out.println(str1);*/
-			/*String str2 = fileFormat.jsonToxml(responseString);
-			System.out.println(str2);*/
-			JsonParserFactory parserFactory = JsonParserFactory.getInstance();
+			/*JSONParser parserFactory = JSONParser.getInstance();
 			com.codesnippets4all.json.parsers.JSONParser parser = parserFactory.newJsonParser();
 			Map jsonData = parser.parseJson(responseString);
 			System.out.println(jsonData);
@@ -124,43 +118,9 @@ public class RestAPI {
 			
 			 if(value.equalsIgnoreCase(sAttributeValue)){
 				 return true;
-			 }
+			 }*/
 			return false;
 		}
 		
-		public boolean compareXmlOutput(String sTag) throws SAXException,
-				IOException, ParserConfigurationException {
-			String[] arr1 = validateData(sTag);
-			
-			String sTagName = arr1[0];
-			String sAttributeValue = arr1[1];
-			boolean result = false;
-			Document document = null;
-			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder builder = null;
-			builder = builderFactory.newDocumentBuilder();
-			responseString = response.asString();
-			InputSource is = new InputSource(new StringReader(responseString));
-
-			document = builder.parse(is);
-
-			// Getting all elements from xml
-			NodeList nodeList = document.getElementsByTagName("*");
-			for (int i = 0; i < nodeList.getLength(); i++) {
-				Element element = (Element) nodeList.item(i);
-				if (element.getNodeName().equals(sTagName)) {
-					NodeList nl = document.getElementsByTagName(sTagName);
-					for (int n = 0; n < nl.getLength(); n++) {
-						if (nl.item(n).getTextContent().equals(sAttributeValue)) {
-							result = true;
-							break;
-						}
-					}
-				}
-				
-			}
-			return result;
-		}
 	}
-}
+
